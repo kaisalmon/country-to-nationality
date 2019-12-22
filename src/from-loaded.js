@@ -21,7 +21,10 @@ async function run(){
       "ELEANOR",
       "KAI",
       "OCTOPUS",
-      "SQUID"
+      "SQUID",
+      "GAUL",
+      "SWEDEN",
+      "ENGLAND",
     ]
     const result = {}
     for(var input of testInputs){

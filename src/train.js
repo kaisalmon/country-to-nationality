@@ -43,7 +43,7 @@ async function train(){
     const model = createModel(shape)
 
     model.compile({
-      optimizer: tf.train.adam(0.001),
+      optimizer: tf.train.adam(0.0005),
       loss: tf.losses.meanSquaredError,
     });
 
