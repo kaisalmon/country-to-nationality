@@ -5,10 +5,10 @@ const oneHotToString = require('./one-hot-to-string')
 
 const savePath = 'file://'+process.cwd()+"/models/model1"
 
-function createModel(inputShape) {
+function createModel(inputShape, outputShape) {
   // Create a sequential model
   const model = tf.sequential();
-  const [width, height] = inputShape;
+  const [width, height] = outputShape;
 
   model.add(
      tf.layers.flatten({inputShape})
@@ -26,7 +26,7 @@ function createModel(inputShape) {
      tf.layers.dense({units: width*height, useBias: true, activation:'sigmoid'})
   )
   model.add(
-     tf.layers.reshape({targetShape: inputShape})
+     tf.layers.reshape({targetShape: outputShape})
   )
 
   console.log(model.summary())
@@ -38,9 +38,10 @@ async function train(){
   try{
     const {inputs, labels} = await createTrainingData();
 
-    const [sampleSize, ...shape] = inputs.shape
+    const [inputSampleSize, ...inputShape] = inputs.shape
+    const [labelSampleSize, ...outputShape] = labels.shape
 
-    const model = createModel(shape)
+    const model = createModel(inputShape, outputShape)
 
     model.compile({
       optimizer: tf.train.adam(0.0005),
@@ -82,10 +83,9 @@ const testInputs = [
   "rocketdesk",
 ]
 function onEpochEnd(epoch){
-  if(epoch%25 !== 0) return
   const result = {}
   for(var input of testInputs){
-    const inputTensor =  tf.tensor3d([stringToOneHot(input)])
+    const inputTensor =  tf.tensor3d([stringToOneHot.stringToDoubleSidedOneHot(input)])
     const prediction = this.predict(inputTensor)
     const [asOneHot] =  result[input] = prediction.arraySync()
     const string = oneHotToString(asOneHot)

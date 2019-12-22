@@ -25,14 +25,17 @@ async function run(){
       "GAUL",
       "SWEDEN",
       "ENGLAND",
+      "SCOTLAND",
+      "WALES",
+      "dickens"
     ]
     const result = {}
     for(var input of testInputs){
-      const inputTensor =  tf.tensor3d([stringToOneHot(input)])
+      const inputTensor =  tf.tensor3d([stringToOneHot.stringToDoubleSidedOneHot(input)])
       const prediction = model.predict(inputTensor)
       const [asOneHot] =  result[input] = prediction.arraySync()
       const string = oneHotToString(asOneHot)
-      console.log(`${input} ---> ${string}`)
+      console.log(`${input}\t--->\t${string}`)
     }
   }catch(e){
     console.error(e)

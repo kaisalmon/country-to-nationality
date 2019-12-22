@@ -12,6 +12,17 @@ function stringToOneHot(string){
   return result
 }
 
+function stringToDoubleSidedOneHot(string){
+  return [
+    ...stringToOneHot(string),
+    ...stringToOneHot(reverse(string))
+  ]
+}
+
+function reverse(s){
+    return s.split("").reverse().join("");
+}
+
 function charToOneHot(c){
   const i = c === " " ? 0 : alphabetPosition(c)
   const result = Array(27).fill(0)
@@ -39,3 +50,4 @@ function padStringToLength(string, length=STRING_LENGTH){
 }
 
 module.exports = stringToOneHot
+module.exports.stringToDoubleSidedOneHot = stringToDoubleSidedOneHot;
