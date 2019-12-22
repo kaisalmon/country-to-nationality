@@ -14,10 +14,13 @@ function createModel(inputShape) {
      tf.layers.flatten({inputShape})
   )
   model.add(
-    tf.layers.gaussianNoise({stddev: 0.3})
+    tf.layers.gaussianNoise({stddev: 0.2})
   )
   model.add(
      tf.layers.dense({units: width*height, useBias: true, activation:'relu'})
+  )
+  model.add(
+    tf.layers.gaussianNoise({stddev: 0.2})
   )
   model.add(
      tf.layers.dense({units: width*height, useBias: true, activation:'sigmoid'})
@@ -40,13 +43,12 @@ async function train(){
     const model = createModel(shape)
 
     model.compile({
-      optimizer: tf.train.adam(0.0005),
+      optimizer: tf.train.adam(0.001),
       loss: tf.losses.meanSquaredError,
-      metrics: ['mse'],
     });
 
     const batchSize = 32;
-    const epochs = 200;
+    const epochs = 1000;
 
     await model.fit(inputs, labels, {
       batchSize,
@@ -79,7 +81,8 @@ const testInputs = [
   "gothenburg",
   "rocketdesk",
 ]
-function onEpochEnd(){
+function onEpochEnd(epoch){
+  if(epoch%25 !== 0) return
   const result = {}
   for(var input of testInputs){
     const inputTensor =  tf.tensor3d([stringToOneHot(input)])

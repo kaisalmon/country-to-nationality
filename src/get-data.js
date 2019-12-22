@@ -17,12 +17,14 @@ function loadCsv(file){
 }
 
 async function getAllPairs(){
-  const [countries, states, continents] = await Promise.all([
+  const [countries, states, continents, regions, hellenic] = await Promise.all([
     loadCsv('trainingdata/countries.csv'),
     loadCsv('trainingdata/us-states.csv'),
-    loadCsv('trainingdata/continents.csv')
+    loadCsv('trainingdata/continents.csv'),
+    loadCsv('trainingdata/regions.csv'),
+    loadCsv('trainingdata/hellenic.csv')
   ])
-  const all =  [...countries, ...states, ...continents]
+  const all =  [...countries, ...states, ...continents, ...regions, ...hellenic]
   const result = all
     .filter(({
       place, adjective
