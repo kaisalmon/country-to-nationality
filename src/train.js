@@ -14,14 +14,16 @@ function createModel(inputShape, outputShape) {
      tf.layers.flatten({inputShape})
   )
   model.add(
-    tf.layers.gaussianNoise({stddev: 0.2})
+    tf.layers.gaussianNoise({stddev: 0.5})
   )
   model.add(
-     tf.layers.dense({units: width*height, useBias: true, activation:'relu'})
+     tf.layers.dense({units: width*height/2, useBias: true, activation:'relu'})
   )
+
   model.add(
-    tf.layers.gaussianNoise({stddev: 0.2})
+    tf.layers.gaussianNoise({stddev: 0.5})
   )
+
   model.add(
      tf.layers.dense({units: width*height, useBias: true, activation:'sigmoid'})
   )

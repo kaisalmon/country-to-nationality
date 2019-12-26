@@ -16,6 +16,18 @@ function loadCsv(file){
   })
 }
 
+function toWildcardString(adjective, place){
+  let str = ''
+  for(let i = 0; i < adjective.length; i++){
+    if(adjective[i] === place[i]){
+      str+="*"
+    }else{
+      str += adjective[i]
+    }
+  }
+  return str;
+}
+
 async function getAllPairs(){
   const [countries, states, continents, regions, hellenic] = await Promise.all([
     loadCsv('trainingdata/countries.csv'),
@@ -32,6 +44,12 @@ async function getAllPairs(){
     .filter(({
       place, adjective
     }) => place.length <= STRING_LENGTH && adjective.length <= STRING_LENGTH)
+    .map(({
+      place, adjective
+    }) => ({
+      place,
+      adjective: toWildcardString(adjective, place)
+    }))
   console.log(result)
   return result
 }

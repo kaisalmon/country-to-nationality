@@ -11,8 +11,8 @@ const createTrainingData = async ()=>{
     .map(stringToOneHot)
 
 
-  const shape = [inputs.length, inputs[0].length, 27]
-  const outputShape = [labels.length, labels[0].length, 27]
+  const shape = [inputs.length, inputs[0].length, 28]
+  const outputShape = [labels.length, labels[0].length, 28]
   const inputOneHot = tf.tensor3d(inputs, shape);
   const labelOneHot = tf.tensor3d(labels, outputShape);
 

@@ -11,23 +11,11 @@ async function run(){
     model.summary();
 
     const testInputs = [
-      "HONG KONG",
-      "DEVON",
-      "EXETER",
-      "BORAS",
-      "FISH",
-      "ALF",
-      "ALFRED",
-      "ELEANOR",
-      "KAI",
-      "OCTOPUS",
-      "SQUID",
-      "GAUL",
-      "SWEDEN",
-      "ENGLAND",
-      "SCOTLAND",
-      "WALES",
-      "dickens"
+      "CUPBOARD",
+      "KITCHEN",
+      "MUG",
+      "COFFEE",
+      "OFFICE"
     ]
     const result = {}
     for(var input of testInputs){

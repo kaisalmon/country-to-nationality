@@ -5,14 +5,15 @@ function oneHotToString(arr){
 }
 
 function oneHotToChar(c){
-  let hightestIndex = 0;
-  for(let i = 1; i <= 26; i++){
-    if(c[i] > c[hightestIndex]){
-      hightestIndex = i;
+  let highestIndex = 0;
+  for(let i = 1; i <= 27; i++){
+    if(c[i] > c[highestIndex]){
+      highestIndex = i;
     }
   }
-  if(hightestIndex === 0) return ' '
-  return String.fromCharCode(hightestIndex + 64);
+  if(highestIndex === 0) return ' '
+  if(highestIndex === 27) return '*'
+  return String.fromCharCode(highestIndex + 64);
 }
 
 module.exports = oneHotToString

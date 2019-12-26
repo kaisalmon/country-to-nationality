@@ -23,9 +23,15 @@ function reverse(s){
     return s.split("").reverse().join("");
 }
 
+function getIndexFromChar(c){
+  if(c === " ") return 0;
+  if(c === "*") return 27;
+  return alphabetPosition(c)
+}
+
 function charToOneHot(c){
-  const i = c === " " ? 0 : alphabetPosition(c)
-  const result = Array(27).fill(0)
+  const i = getIndexFromChar(c)
+  const result = Array(28).fill(0)
   result[i] = 1
   return result
 }
@@ -37,7 +43,7 @@ function alphabetPosition(c) {
 }
 
 function standardizeString(string){
-  const withSpecialRemoved =  string.replace(/[^a-zA-Z ]/g, '')
+  const withSpecialRemoved =  string.replace(/[^a-zA-Z \*]/g, '')
   const padded = padStringToLength(withSpecialRemoved)
   return padded
 }
@@ -48,6 +54,7 @@ function padStringToLength(string, length=STRING_LENGTH){
   const padOfCorrectSize = pad.substring(0, padSize);
   return string + padOfCorrectSize;
 }
+
 
 module.exports = stringToOneHot
 module.exports.stringToDoubleSidedOneHot = stringToDoubleSidedOneHot;
